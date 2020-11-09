@@ -1,6 +1,6 @@
 # Camunda Rest API
 
-The main purpuse of that application is to give an example that how the Camunda Rest API works.
+The main purpuse of that application is to give an example that how the Camunda Rest API works. More about loot up at (https://docs.camunda.org/manual/7.14/reference/rest/) [https://docs.camunda.org/manual/7.14/reference/rest/]
 
 ## About
 
