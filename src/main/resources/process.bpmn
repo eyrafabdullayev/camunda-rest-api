@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
+  <bpmn:process id="camunda-rest-api-process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Start process">
+      <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="authentication" />
+    <bpmn:endEvent id="EndEvent_0x6ir2l" name="End process">
+      <bpmn:incoming>Flow_1y0e6dm</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1nu0ani" sourceRef="authentication" targetRef="Gateway_0vam84z" />
+    <bpmn:serviceTask id="authentication" name="Refresh (auth_token)" camunda:delegateExpression="${authentication}">
+      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nu0ani</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_0vam84z" default="Flow_0vblb6e">
+      <bpmn:incoming>Flow_1nu0ani</bpmn:incoming>
+      <bpmn:outgoing>Flow_1y0e6dm</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0vblb6e</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1y0e6dm" sourceRef="Gateway_0vam84z" targetRef="EndEvent_0x6ir2l">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${auth_token != null}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0vblb6e" sourceRef="Gateway_0vam84z" targetRef="Event_0mhzbd8" />
+    <bpmn:endEvent id="Event_0mhzbd8">
+      <bpmn:incoming>Flow_0vblb6e</bpmn:incoming>
+      <bpmn:terminateEventDefinition id="TerminateEventDefinition_02ll97o" />
+    </bpmn:endEvent>
+    <bpmn:textAnnotation id="TextAnnotation_051mwjw">
+      <bpmn:text>Terminate process if auth_token is null</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_11nldx8" sourceRef="Event_0mhzbd8" targetRef="TextAnnotation_051mwjw" />
+  </bpmn:process>
+  <bpmn:error id="Error_12jvxq4" name="Error_3jgput3" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="camunda-rest-api-process">
+      <bpmndi:BPMNShape id="TextAnnotation_051mwjw_di" bpmnElement="TextAnnotation_051mwjw">
+        <dc:Bounds x="560" y="260" width="128" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nu0ani_di" bpmnElement="Flow_1nu0ani">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="435" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y0e6dm_di" bpmnElement="Flow_1y0e6dm">
+        <di:waypoint x="485" y="117" />
+        <di:waypoint x="652" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vblb6e_di" bpmnElement="Flow_0vblb6e">
+        <di:waypoint x="460" y="142" />
+        <di:waypoint x="460" y="210" />
+        <di:waypoint x="542" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="164" y="142" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vv9bup_di" bpmnElement="authentication">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0vam84z_di" bpmnElement="Gateway_0vam84z" isMarkerVisible="true">
+        <dc:Bounds x="435" y="92" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0x6ir2l_di" bpmnElement="EndEvent_0x6ir2l">
+        <dc:Bounds x="652" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="639" y="142" width="62" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_15q3f4w_di" bpmnElement="Event_0mhzbd8">
+        <dc:Bounds x="542" y="192" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_11nldx8_di" bpmnElement="Association_11nldx8">
+        <di:waypoint x="571" y="224" />
+        <di:waypoint x="598" y="260" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
