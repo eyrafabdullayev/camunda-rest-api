@@ -26,7 +26,7 @@ The main purpuse of that application is to give an example that how the Camunda 
 
   Then Service tast will have been completed and a request will been sended to refresh the current token. If the auth_token variable is empty or not found the exception will be raise. Else the process will be complete successfully.
    
-4. And i have also used Spring Cloud Vault to secure and store some of the results. For that you have to start vault server and add that properties as i have already shown below.
+4. And i have also used Spring Cloud Vault to secure and store some of the properties or secrets. For that you have to start vault server and add that properties as i have already shown below.
 
   ![vault setting](https://github.com/eyrafabdullayev/camunda-rest-api/blob/master/screenshots/vault.png)
 
